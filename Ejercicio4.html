@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Interactividad 3D con A-Frame y AR.js</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframear.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+    <!-- A-Frame Scene con AR.js -->
+    <a-scene embedded arjs="sourceType: webcam; detectionMode:
+mono_and_matrix; debugUIEnabled: false;">
+        <!-- Marcador Hiro para la RA -->
+        <a-marker preset="hiro">
+            <!-- Cubo con interactividad: cambio de color y escala -->
+            <a-box position="0 1 0" material="color: red; opacity: 0.6" scale="1 1 1" class="interactable" id="cubo">
+            </a-box>
+            <!-- Esfera con interactividad: cambio de color y escala -->
+            <a-sphere position="2 1 0" radius="0.5" color="blue" class="interactable" id="esfera">
+            </a-sphere>
+            <!-- Cono con interactividad: cambio de color y escala -->
+            <a-cone position="-2 1 0" radius-bottom="0.5" radius-top="0" height="1" color="green" class="interactable"
+                id="cono">
+            </a-cone>
+        </a-marker>
+        <!-- Cámara para visualizar la escena -->
+        <a-entity camera position="0 0 3"> <!-- Ajustamos la posición de la cámara aquí
+ -->
+            <!-- Agregar un cursor para detectar clics/tap -->
+            <a-cursor id="cursor" color="#FF0000" raycaster="objects: .interactable" fuse="true" fuse-timeout="500">
+            </a-cursor>
+        </a-entity>
+    </a-scene>
+    <script>
+        // Función para cambiar color y escala
+        function cambiarColorYEscala(elemento) {
+            // Cambiar color aleatorio
+            const colores = ['red', 'green', 'blue', 'yellow', 'purple', 'orange'];
+            const colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
+            elemento.setAttribute('material', 'color', colorAleatorio);
+            // Cambiar escala aleatoria
+            const escala = Math.random() * 2 + 0.5; // Escala entre 0.5 y 2.5 elemento.setAttribute('scale', `${escala} ${escala} ${escala}`);
+        }
+        // Seleccionar todos los objetos interactivos y asignarles un evento de clic/tap
+        const objetosInteractivos = document.querySelectorAll('.interactable');
+        objetosInteractivos.forEach(function (objeto) {
+            objeto.addEventListener('click', function () {
+                cambiarColorYEscala(this);
+            });
+        });
+    </script>
+</body>
+
+</html>
