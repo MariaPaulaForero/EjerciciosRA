@@ -1,71 +1,74 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <title>Interactividad 3D con A-Frame y AR.js</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframear.js"></script>
-</head>
-
-<body style="margin: 0; overflow: hidden;">
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
     <!-- A-Frame Scene con AR.js -->
-    <a-scene embedded arjs="sourceType: webcam; detectionMode:
-mono_and_matrix; debugUIEnabled: false;">
-        <!-- Marcador Hiro para la RA -->
-        <a-marker preset="hiro">
-            <!-- Cubo con interactividad: cambio de forma al pasar el cursor --><a-box position="0 1 0"
-                material="color: red; opacity: 0.6" scale="1 1 1" id="cubo" class="interactable">
-            </a-box>
-            <!-- Esfera con interactividad: cambia al pasar el cursor -->
-            <a-sphere position="0 1 0" radius="0.5" color="blue" id="esfera" scale="0 0 0" class="interactable">
-            </a-sphere>
-            <!-- Cono con interactividad: cambia al pasar el cursor -->
-            <a-cone position="0 1 0" radius-bottom="0.5" radius-top="0" height="1" color="green" id="cono" scale="0 0 0"
-                class="interactable">
-            </a-cone>
-        </a-marker>
-        <!-- Cámara para visualizar la escena -->
-        <a-entity camera position="0 0 3"> <!-- Manteniendo la posición de la cámara --
->
-<!-- Agregar un cursor para detectar clics/tap -->
-            <a-cursor id="cursor" color="#FF0000" raycaster="objects: .interactable" fuse="true" fuse-timeout="500">
-            </a-cursor>
-        </a-entity>
+    <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; debugUIEnabled: false;">
+      <!-- Marcador Hiro para la RA -->
+      <a-marker preset="hiro">
+        <!-- Cubo con interactividad: cambio de forma al pasar el cursor -->
+        <a-box position="0 1 0" material="color: red; opacity: 0.6" scale="1 1 1" id="cubo" class="interactable">
+        </a-box>
+
+        <!-- Esfera con interactividad: cambia al pasar el cursor -->
+        <a-sphere position="0 1 0" radius="0.5" color="blue" id="esfera" scale="0 0 0" class="interactable">
+        </a-sphere>
+
+        <!-- Cono con interactividad: cambia al pasar el cursor -->
+        <a-cone position="0 1 0" radius-bottom="0.5" radius-top="0" height="1" color="green" id="cono" scale="0 0 0" class="interactable">
+        </a-cone>
+
+      </a-marker>
+
+      <!-- CÃ¡mara para visualizar la escena -->
+      <a-entity camera position="0 0 3"> <!-- Manteniendo la posiciÃ³n de la cÃ¡mara -->
+        <!-- Agregar un cursor para detectar clics/tap -->
+        <a-cursor id="cursor"
+                  color="#FF0000"
+                  raycaster="objects: .interactable"
+                  fuse="true" fuse-timeout="500">
+        </a-cursor>
+      </a-entity>
+
     </a-scene>
+
     <script>
-        // Función para cambiar entre las formas (cubo, esfera, cono)
-        function cambiarForma(elemento) {
-            const id = elemento.id;
-
-            // Crear una lista de las formas
-            const formas = ['cubo', 'esfera', 'cono'];
-            let formaActual = formas.indexOf(id);
-            formaActual = (formaActual + 1) % formas.length; // Cambiar entre cubo, esfera y cono
-
-            // Cambiar la geometría del objeto
-            const objetoSeleccionado =
-                document.querySelector(`#${formas[formaActual]}`);
-
-            // Mostrar la forma seleccionada y ocultar las demás
-            objetoSeleccionado.setAttribute('scale', '1 1 1');
-            objetoSeleccionado.setAttribute('position',
-                `${elemento.getAttribute('position').x} 1 0`);
-
-            // Ocultar las otras formas
-            formas.forEach((forma, index) => {
-                const obj = document.querySelector(`#${forma}`);
-                if (index !== formaActual) {
-                    obj.setAttribute('scale', '0 0 0');
-                }
-            });
-        }
-        // Asignar el evento de interacción para el cambio de forma
-        document.querySelectorAll('.interactable').forEach(function (objeto) {
-            objeto.addEventListener('mouseenter', function () {
-                cambiarForma(this);
-            });
+      // FunciÃ³n para cambiar entre las formas (cubo, esfera, cono)
+      function cambiarForma(elemento) {
+        const id = elemento.id;
+        
+        // Crear una lista de las formas
+        const formas = ['cubo', 'esfera', 'cono'];
+        let formaActual = formas.indexOf(id);
+        formaActual = (formaActual + 1) % formas.length; // Cambiar entre cubo, esfera y cono
+        
+        // Cambiar la geometrÃ­a del objeto
+        const objetoSeleccionado = document.querySelector(`#${formas[formaActual]}`);
+        
+        // Mostrar la forma seleccionada y ocultar las demÃ¡s
+        objetoSeleccionado.setAttribute('scale', '1 1 1');
+        objetoSeleccionado.setAttribute('position', `${elemento.getAttribute('position').x} 1 0`);
+        
+        // Ocultar las otras formas
+        formas.forEach((forma, index) => {
+          const obj = document.querySelector(`#${forma}`);
+          if (index !== formaActual) {
+            obj.setAttribute('scale', '0 0 0');
+          }
         });
-    </script>
-</body>
+      }
 
+      // Asignar el evento de interacciÃ³n para el cambio de forma
+      document.querySelectorAll('.interactable').forEach(function (objeto) {
+        objeto.addEventListener('mouseenter', function() {
+          cambiarForma(this);
+        });
+      });
+    </script>
+  </body>
 </html>
