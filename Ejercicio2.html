@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>RA Compleja con A-Frame y AR.js</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframear.js"></script>
-</head>
-
-<body style="margin: 0; overflow: hidden;">
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs>
-        <!-- Marcador Hiro que contiene la RA -->
-        <a-marker preset="hiro">
+      <!-- Marcador Hiro que contiene la RA -->
+      <a-marker preset="hiro">
+        
+        <!-- Cubo animado con cambio de color -->
+        <a-box position="0 0.5 0" material="color: red; opacity: 0.6" animation="property: rotation; to: 0 360 0; dur: 3000; loop: true;"></a-box>
 
-            <!-- Cubo animado con cambio de color -->
-            <a-box position="0 0.5 0" material="color: red; opacity: 0.6"
-                animation="property: rotation; to: 0 360 0; dur: 3000; loop: true;"></a-box>
-            <!-- Esfera giratoria -->
-            <a-sphere position="0 1.5 0" radius="0.5" color="blue" animation="property:
-rotation; to: 360 360 0; dur: 4000; loop: true;"></a-sphere>
-            <!-- Modelo 3D GLTF cargado sobre el marcador (aquí usarás cualquier archivo
-GLTF) -->
-            <a-entity
-                gltf-model="url(https://cdn.glitch.com/8e6b073d-8ffb-44c1-940eb91e5d4b3501%2Fscene.gltf?1529457732392)"
-                scale="0.5 0.5 0.5" position="0
-0.5 0"></a-entity>
-        </a-marker>
-        <!-- Cámara para visualizar la escena -->
-        <a-entity camera></a-entity>
+        <!-- Esfera giratoria -->
+        <a-sphere position="0 1.5 0" radius="0.5" color="blue" animation="property: rotation; to: 360 360 0; dur: 4000; loop: true;"></a-sphere>
+
+        <!-- Modelo 3D GLTF cargado sobre el marcador (aquÃ­ usarÃ¡s cualquier archivo GLTF) -->
+        <a-entity gltf-model="url(https://cdn.glitch.com/8e6b073d-8ffb-44c1-940e-b91e5d4b3501%2Fscene.gltf?1529457732392)" scale="0.5 0.5 0.5" position="0 0.5 0"></a-entity>
+
+      </a-marker>
+      
+      <!-- CÃ¡mara para visualizar la escena -->
+      <a-entity camera></a-entity>
     </a-scene>
-</body>
-
+  </body>
 </html>
